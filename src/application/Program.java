@@ -38,15 +38,12 @@ public class Program {
 			System.out.print("Data de check-out (dd/mm/aaaa): ");
 			checkOut = LocalDate.parse(sc.nextLine(), fmt);
 			
-			LocalDate diaAtual = LocalDate.now();
-			if (checkIn.isBefore(diaAtual) || checkOut.isBefore(diaAtual)) {
-				System.out.println("Erro na reserva: As reservas devem ser feitas para datas futuras");
-			} else if (checkOut.isBefore(checkIn)) {
-				System.out.println("Erro na reserva: O check-out deve ser feito após o check-in");
+			String erro = reserva.atualizarDatas(checkIn, checkOut);
+			if (erro != null) {
+				System.out.println("Erro na reserva: " + erro);				
 			} else {
-				reserva.atualizarDatas(checkIn, checkOut);
 				System.out.println("Reserva: " + reserva);
-			}	
+			}
 		}
 		
 		sc.close();
